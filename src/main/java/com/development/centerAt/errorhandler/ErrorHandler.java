@@ -1,9 +1,5 @@
 package com.development.centerAt.errorhandler;
 
-import com.development.centerAt.errorhandler.exceptions.BriefProcessingException;
-import com.development.centerAt.errorhandler.exceptions.EnumConvertingException;
-import com.development.centerAt.errorhandler.exceptions.NoSuchImageException;
-import com.development.centerAt.errorhandler.exceptions.ObjectNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,37 +27,9 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handle(final NoSuchImageException exception) {
-        log.error("exception ={}", exception.getMessage());
-        return new ErrorResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(), exception.getMessage(), LocalDateTime.now().format(TIME_PATTERN));
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handle(final ObjectNotFoundException exception) {
-        log.error("exception ={}", exception.getMessage());
-        return new ErrorResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(), exception.getMessage(), LocalDateTime.now().format(TIME_PATTERN));
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handle(final IllegalArgumentException exception) {
         log.error("Exception: {}", exception.getMessage());
         return new ErrorResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(), exception.getMessage(), LocalDateTime.now().format(TIME_PATTERN));
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handle(final BriefProcessingException exception) {
-        log.error("Exception: {}", exception.getMessage());
-        return new ErrorResponse(HttpStatus.NOT_FOUND.getReasonPhrase(), exception.getMessage(), LocalDateTime.now().format(TIME_PATTERN));
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handle(final EnumConvertingException exception) {
-        log.error("Exception: {}", exception.getMessage());
-        return new ErrorResponse(HttpStatus.NOT_FOUND.getReasonPhrase(), exception.getMessage(), LocalDateTime.now().format(TIME_PATTERN));
     }
 
     @ExceptionHandler
